@@ -1,0 +1,35 @@
+﻿@page "/userinfo"
+
+@attribute [Authorize]
+
+@inject IAuthService AuthService
+
+<MudOverlay Visible="isVisible" DarkBackground="true" ZIndex="9999">
+    <MudProgressCircular Color="Color.Secondary" Size="Size.Medium" Indeterminate="true" />
+</MudOverlay>
+
+<MudCard Elevation="25" Class="mt-6">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">User Info</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudText>Email ID : @userDetail.Email</MudText>
+        <MudText>Email Confirmed : @userDetail.EmailConfirmed</MudText>
+        <MudText>User Name : @userDetail.UserName</MudText>
+        <MudText>Phone No : @userDetail.PhoneNumber</MudText>
+        <MudText>Phone Confirmed : @userDetail.PhoneNumberConfirmed</MudText>
+    </MudCardContent>
+</MudCard>
+
+@code {
+    private UserDetails userDetail = new();
+    private bool isVisible = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        userDetail = await AuthService.GetUserInfo();
+        isVisible = false;
+    }
+}

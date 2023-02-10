@@ -1,0 +1,12 @@
+﻿<AuthorizeView>
+    <Authorized>
+        <MudText Color="@Color.Inherit" Class="mx-3">Hello, @context.User.Identity.Name!</MudText>
+        <MudLink Href="/userinfo" Color="@Color.Inherit" Class="mx-3">My Account</MudLink>
+        <MudLink Href="/changepassword" Color="@Color.Inherit" Class="mx-3">Change Passowrd</MudLink>
+        <MudLink Href="Logout" Color="@Color.Inherit">Log out</MudLink>
+    </Authorized>
+    <NotAuthorized>
+        <MudLink Href="Register" Color="@Color.Inherit" Class="mx-3">Register</MudLink>
+        <MudLink Href="Login" Color="@Color.Inherit">Log in</MudLink>
+    </NotAuthorized>
+</AuthorizeView>

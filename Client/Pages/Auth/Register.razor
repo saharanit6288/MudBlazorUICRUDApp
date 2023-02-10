@@ -1,0 +1,79 @@
+﻿@page "/register"
+
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+@inject ISnackbar snackBar;
+
+@if (ShowErrors)
+{
+    <MudCard Elevation="25" Class="mt-6">
+        <MudCardContent>
+            <div class="alert alert-danger" role="alert">
+                @foreach (var error in Errors)
+                {
+                    <p>@error</p>
+                }
+            </div>
+        </MudCardContent>
+    </MudCard>
+}
+
+<MudOverlay Visible="isVisible" DarkBackground="true" ZIndex="9999">
+    <MudProgressCircular Color="Color.Secondary" Size="Size.Medium" Indeterminate="true" />
+</MudOverlay>
+
+
+<EditForm Model="@model" OnValidSubmit="HandleRegistration">
+    <DataAnnotationsValidator />
+    <MudGrid Class="mt-6">
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Register</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField Label="Email" Class="mt-3"
+                                  @bind-Value="model.Email" For="@(() => model.Email)" />
+                    <MudTextField Label="Phone No" HelperText="Type a phone number" Class="mt-3"
+                                  @bind-Value="model.PhoneNumber" For="@(() => model.PhoneNumber)" />
+                    <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                                  @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password" />
+                    <MudTextField Label="Confirm Password" HelperText="Repeat the password" Class="mt-3"
+                                  @bind-Value="model.ConfirmPassword" For="@(() => model.ConfirmPassword)" InputType="InputType.Password" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+@code {
+    private RegisterModel model = new RegisterModel();
+    private bool ShowErrors;
+    private IEnumerable<string> Errors;
+    private bool isVisible = false;
+
+    private async Task HandleRegistration()
+    {
+        ShowErrors = false;
+        isVisible = true;
+
+        var result = await AuthService.Register(model);
+
+        if (result.Successful)
+        {
+            snackBar.Add("Register Success! Please Login...", Severity.Success);
+            NavigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            Errors = result.Errors;
+            ShowErrors = true;
+            isVisible = false;
+        }
+    }
+}

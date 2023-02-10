@@ -1,0 +1,123 @@
+﻿@page "/students"
+
+@attribute [Authorize]
+@inject IStudentService StudentService;
+@inject NavigationManager NavigationManager;
+@inject IDialogService DialogService;
+@inject ISnackbar snackBar;
+
+<br />
+
+
+<MudOverlay Visible="isVisible" DarkBackground="true" ZIndex="9999">
+    <MudProgressCircular Color="Color.Secondary" Size="Size.Medium" Indeterminate="true" />
+</MudOverlay>
+
+<MudTable Items="@students" Hover="true" Filter="new Func<Student,bool>(FilterFunc)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Students</MudText>
+        <MudSpacer />
+        <MudButton Href="/addstudent"
+                   Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Add"
+                   Color="Color.Primary">
+            Add Student
+        </MudButton>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Search for Students..." Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>Email Id</MudTh>
+        <MudTh>Contact No</MudTh>
+        <MudTh>Gender</MudTh>
+        <MudTh>Age</MudTh>
+        <MudTh>Date of Birth</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Email Id">@context.Email</MudTd>
+        <MudTd DataLabel="Contact No">@context.ContactNo</MudTd>
+        <MudTd DataLabel="Gender">@context.Gender</MudTd>
+        <MudTd DataLabel="Age">@context.Age</MudTd>
+        <MudTd DataLabel="Date of Birth">@context.DateOfBrith</MudTd>
+        <MudTd DataLabel="">
+            <MudFab @onclick="@(()=>Edit(@context.StudentID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small" />
+            <MudFab @onclick="@(()=>Delete(@context))" Color="Color.Secondary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small" />
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[] { 5,10,20,50}" />
+    </PagerContent>
+</MudTable>
+
+<br /><br/>
+
+@code {
+    private IEnumerable<Student> students = new List<Student>();
+    private string searchString = "";
+    private bool isVisible = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadStudents();
+        isVisible = false;
+    }
+
+    private async Task LoadStudents()
+    {
+        students = await StudentService.GetStudents();
+    }
+
+    private void Edit(int id)
+    {
+        NavigationManager.NavigateTo("/editstudent/"+id);
+    }
+
+    private async Task Delete(Student student)
+    {
+        bool? flag = await DialogService.ShowMessageBox(
+            "Warning",
+            "Are you sure you want to delete?",
+            yesText: "Delete", cancelText: "Cancel");
+
+        if (flag == true)
+        {
+            isVisible = true;
+            await StudentService.DeleteStudentImage(student.PhotoPath);
+            var result = await StudentService.DeleteStudent(student.StudentID);
+            isVisible = false;
+
+            if (result.Successful)
+            {
+                snackBar.Add("Student record deleted!", Severity.Success);
+                await LoadStudents();
+            }
+            else
+            {
+                foreach (var err in result.Errors)
+                { 
+                    snackBar.Add(err, Severity.Error);
+                }
+            }
+        }
+    }
+
+    private bool FilterFunc(Student student) => Search(student, searchString);
+
+    private bool Search(Student student, string searchText)
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+            return true;
+        if (student.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (student.Email.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (!string.IsNullOrEmpty(student.ContactNo) && student.ContactNo.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (!string.IsNullOrEmpty(student.Address) && student.Address.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+}

@@ -1,0 +1,179 @@
+﻿@page "/addstudent"
+@page "/editstudent/{Id:int}"
+
+@attribute [Authorize]
+@using System.Net.Http.Headers;
+@inject IStudentService StudentService;
+@inject NavigationManager navigationManager;
+@inject ISnackbar snackBar;
+
+<br />
+
+@if (ShowErrors)
+{
+    <div class="alert alert-danger" role="alert">
+        @foreach (var error in Errors)
+        {
+            <p>@error</p>
+        }
+    </div>
+}
+
+<br />
+
+<MudOverlay Visible="isVisible" DarkBackground="true" ZIndex="9999">
+    <MudProgressCircular Color="Color.Secondary" Size="Size.Medium" Indeterminate="true" />
+</MudOverlay>
+
+<EditForm Model="@student" OnValidSubmit="SubmitFormData">
+    <DataAnnotationsValidator />
+    @*<ValidationSummary />*@
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">@headerText</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField Label="Name" HelperText="Min. 2 characters" Required="true"
+                                  @bind-Value="student.Name" For="@(() => student.Name)" />
+                    <MudTextField Label="Email" Class="mt-3" Required="true"
+                                  @bind-Value="student.Email" For="@(() => student.Email)" />
+                    <MudTextField Label="Contact No" Class="mt-3"
+                                  @bind-Value="student.ContactNo" For="@(() => student.ContactNo)" />
+                    <MudNumericField @bind-Value="student.Age" Required="true" Class="mt-3" Label="Age" Variant="Variant.Text" Min="0" Max="99"
+                                     For="@(() => student.Age)" />
+                    <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="Date of Birth" Required="true" Class="mt-3"
+                                   DateFormat="dd/MM/yyyy" @bind-Date="date" />
+                    <MudTextField T="string" Label="Address" Variant="Variant.Text" @bind-Value="student.Address" Lines="3" Class="mt-3" />
+                    <MudSelect T="Gender" Label="Gender" AnchorOrigin="Origin.BottomCenter" @bind-Value="student.Gender" Class="mt-3">
+                        @foreach (Gender gen in Enum.GetValues(typeof(Gender)))
+                        {
+                            <MudSelectItem Value="gen" />
+                        }
+                    </MudSelect>
+                    <MudFileUpload T="IBrowserFile" OnFilesChanged="UploadFile">
+                        <ButtonTemplate Context="photpath">
+                            <MudButton HtmlTag="label"
+                                       Variant="Variant.Filled"
+                                       Color="Color.Primary"
+                                       StartIcon="@Icons.Material.Filled.CloudUpload"
+                                       Class="mt-3"
+                                       for="@photpath">
+                                Upload Student Image
+                            </MudButton>
+                        </ButtonTemplate>
+                    </MudFileUpload>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Submit</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="5">
+            @if (!string.IsNullOrEmpty(student.PhotoPath))
+            {
+                <MudImage Src="@student.PhotoPath" Alt="@student.Name" Elevation="25" Class="rounded-lg" Width="250" Height="250" />
+            }
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+
+@code {
+    private bool isVisible = true;
+    private Student student = new();
+    private StreamContent? fileContent;
+    private string? fileName;
+    private bool ShowErrors;
+    private IEnumerable<string> Errors;
+    private string headerText = "Add Student";
+    DateTime? date = DateTime.Today;
+
+
+    [Parameter]
+    public int Id { get; set; } = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id != 0)
+        {
+            headerText = "Edit Student";
+            student = await StudentService.GetStudent(Id);
+            date = student.DateOfBrith;
+            isVisible = false;
+        }
+        else
+        {
+            student = new Student
+                {
+                    DateOfBrith = DateTime.Today
+                };
+            isVisible = false;
+        }
+    }
+
+    protected async Task SubmitFormData()
+    {
+        isVisible = true;
+        if (!string.IsNullOrEmpty(fileName))
+        {
+            //Delete Image if Exists
+            if (Id != 0)
+            {
+                await StudentService.DeleteStudentImage(student.PhotoPath);
+            }
+
+            //Upload Image
+            using var content = new MultipartFormDataContent();
+            content.Add(content: fileContent, name: "\"file\"", fileName: fileName);
+            var res = await StudentService.UploadStudentImage(content);
+
+            student.PhotoPath = res.UploadFilePath;
+        }
+
+        student.DateOfBrith = Convert.ToDateTime(date);
+
+        if (Id != 0)
+        {
+            var result = await StudentService.UpdateStudent(student);
+            isVisible = false;
+            if (result.Successful)
+            {
+                snackBar.Add("Student record updated!", Severity.Success);
+                navigationManager.NavigateTo("/students");
+            }
+            else
+            {
+                Errors = result.Errors;
+                ShowErrors = true;
+            }
+            
+        }
+        else
+        {
+            var result = await StudentService.CreateStudent(student);
+            isVisible = false;
+            if (result.Successful)
+            {
+                snackBar.Add("Student record created!", Severity.Success);
+                navigationManager.NavigateTo("/students");
+            }
+            else
+            {
+                Errors = result.Errors;
+                ShowErrors = true;
+            }
+        }
+    }
+
+    private void UploadFile(InputFileChangeEventArgs e)
+    {
+        long maxFileSize = 1024 * 1024 * 10; //10 MB
+        fileContent = new StreamContent(e.File.OpenReadStream(maxFileSize));
+        fileContent.Headers.ContentType = new MediaTypeHeaderValue(e.File.ContentType);
+        fileName = e.File.Name;
+    }
+}

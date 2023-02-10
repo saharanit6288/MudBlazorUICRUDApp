@@ -1,0 +1,72 @@
+﻿@page "/login"
+
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+
+@if (ShowErrors)
+{
+    <MudCard Elevation="25" Class="mt-6">
+        <MudCardContent>
+            <div class="alert alert-danger" role="alert">
+                 <p>@Error</p>
+            </div>
+        </MudCardContent>
+    </MudCard>
+}
+
+<MudOverlay Visible="isVisible" DarkBackground="true" ZIndex="9999">
+    <MudProgressCircular Color="Color.Secondary" Size="Size.Medium" Indeterminate="true" />
+</MudOverlay>
+
+<EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    <MudGrid Class="mt-6">
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Login</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField Label="Email" Class="mt-3"
+                                  @bind-Value="loginModel.Email" For="@(() => loginModel.Email)" />
+                    <MudTextField Label="Password" Class="mt-3"
+                                  @bind-Value="loginModel.Password" For="@(() => loginModel.Password)" InputType="InputType.Password" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Login</MudButton>
+                </MudCardActions>
+            </MudCard>
+            <br />
+            <a href="/resetpassword">Forgot Password?</a>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+
+@code {
+    private LoginModel loginModel = new LoginModel();
+    private bool ShowErrors;
+    private string Error = "";
+    private bool isVisible = false;
+
+    private async Task HandleLogin()
+    {
+        ShowErrors = false;
+        isVisible = true;
+
+        var result = await AuthService.Login(loginModel);
+
+        if (result.Successful)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            Error = result.Error;
+            ShowErrors = true;
+            isVisible = false;
+        }
+    }
+}
