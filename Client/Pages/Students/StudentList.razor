@@ -27,6 +27,7 @@
         <MudTextField @bind-Value="searchString" Placeholder="Search for Students..." Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
     <HeaderContent>
+        <MudTh>Image</MudTh>
         <MudTh>Name</MudTh>
         <MudTh>Email Id</MudTh>
         <MudTh>Contact No</MudTh>
@@ -36,12 +37,18 @@
         <MudTh>Actions</MudTh>
     </HeaderContent>
     <RowTemplate>
+        <MudTd>
+            @if (!string.IsNullOrEmpty(context.PhotoPath))
+            {
+                <MudImage Src="@context.PhotoPath" Alt="@context.Name" Elevation="25" Class="rounded-lg" Width="25" Height="25" />
+            }
+        </MudTd>
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd DataLabel="Email Id">@context.Email</MudTd>
         <MudTd DataLabel="Contact No">@context.ContactNo</MudTd>
         <MudTd DataLabel="Gender">@context.Gender</MudTd>
         <MudTd DataLabel="Age">@context.Age</MudTd>
-        <MudTd DataLabel="Date of Birth">@context.DateOfBrith</MudTd>
+        <MudTd DataLabel="Date of Birth">@context.DateOfBrith.ToString("dd MMM, yyyy")</MudTd>
         <MudTd DataLabel="">
             <MudFab @onclick="@(()=>Edit(@context.StudentID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small" />
             <MudFab @onclick="@(()=>Delete(@context))" Color="Color.Secondary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small" />
@@ -85,7 +92,7 @@
         if (flag == true)
         {
             isVisible = true;
-            await StudentService.DeleteStudentImage(student.PhotoPath);
+            //await StudentService.DeleteStudentImage(student.PhotoPath);
             var result = await StudentService.DeleteStudent(student.StudentID);
             isVisible = false;
 

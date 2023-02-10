@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Ranit Saha\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\images\\img1.jpg",
+      "PackagePath": "staticwebassets\\images\\img1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ranit Saha\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\images\\img5.jpg",
+      "PackagePath": "staticwebassets\\images\\img5.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.MudBlazorUICRUDApp.Server.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.MudBlazorUICRUDApp.Server.props",
+      "PackagePath": "build\\MudBlazorUICRUDApp.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.MudBlazorUICRUDApp.Server.props",
+      "PackagePath": "buildMultiTargeting\\MudBlazorUICRUDApp.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.MudBlazorUICRUDApp.Server.props",
+      "PackagePath": "buildTransitive\\MudBlazorUICRUDApp.Server.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

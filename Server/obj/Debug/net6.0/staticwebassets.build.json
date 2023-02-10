@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "e8XpdFWms9cjm5KT1ski/8znlDTL5hNFjV0c4uX+uFI=",
+  "Hash": "TCDHBfYdqe/042XnpnRUClahaQh4UBcTlAyXXMRdv38=",
   "Source": "MudBlazorUICRUDApp.Server",
   "BasePath": "_content/MudBlazorUICRUDApp.Server",
   "Mode": "Default",
@@ -24,6 +24,13 @@
       "Source": "MudBlazorUICRUDApp.Client",
       "ContentRoot": "C:\\Users\\Ranit Saha\\source\\repos\\MudBlazorUICRUDApp\\Client\\wwwroot\\",
       "BasePath": "/",
+      "Pattern": "**"
+    },
+    {
+      "Name": "MudBlazorUICRUDApp.Server\\wwwroot",
+      "Source": "MudBlazorUICRUDApp.Server",
+      "ContentRoot": "C:\\Users\\Ranit Saha\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\",
+      "BasePath": "_content/MudBlazorUICRUDApp.Server",
       "Pattern": "**"
     }
   ],
@@ -8306,6 +8313,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "C:\\Users\\Ranit Saha\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\images\\img1.jpg",
+      "SourceId": "MudBlazorUICRUDApp.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ranit Saha\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\",
+      "BasePath": "_content/MudBlazorUICRUDApp.Server",
+      "RelativePath": "images/img1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\img1.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Ranit Saha\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\images\\img5.jpg",
+      "SourceId": "MudBlazorUICRUDApp.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ranit Saha\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\",
+      "BasePath": "_content/MudBlazorUICRUDApp.Server",
+      "RelativePath": "images/img5.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\img5.jpg"
     }
   ]
 }

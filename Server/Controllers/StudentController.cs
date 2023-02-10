@@ -58,6 +58,22 @@ namespace MudBlazorUICRUDApp.Server.Controllers
                     return BadRequest("No Input");
                 }
 
+                //Upload File
+                if (!string.IsNullOrEmpty(student.FileName))
+                {
+                    //If we want to create wwwroot folder in Server project
+                    if (string.IsNullOrWhiteSpace(_env.WebRootPath))
+                    {
+                        _env.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                    }
+                    var path = Path.Combine(_env.WebRootPath, "images", student.FileName);
+                    var fs = System.IO.File.Create(path);
+                    fs.Write(student.FileContent, 0, student.FileContent.Length);
+                    fs.Close();
+
+                    student.PhotoPath = Path.Combine("images", student.FileName);
+                }
+
                 var result = await _studentRepository.AddStudent(student);
 
                 return Ok(result);
@@ -79,6 +95,36 @@ namespace MudBlazorUICRUDApp.Server.Controllers
                     return BadRequest("No Input");
                 }
 
+                var stu = await _studentRepository.GetStudent(student.StudentID);
+
+                //Upload File
+                if (!string.IsNullOrEmpty(student.FileName))
+                {
+                    //If we want to create wwwroot folder in Server project
+                    if (string.IsNullOrWhiteSpace(_env.WebRootPath))
+                    {
+                        _env.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                    }
+
+                    //Delete File
+                    if (!string.IsNullOrEmpty(stu.PhotoPath))
+                    {
+                        var pathDel = Path.Combine(_env.WebRootPath, stu.PhotoPath);
+
+                        if (System.IO.File.Exists(pathDel))
+                        {
+                            System.IO.File.Delete(pathDel);
+                        }
+                    }
+                    
+                    var path = Path.Combine(_env.WebRootPath, "images", student.FileName);
+                    var fs = System.IO.File.Create(path);
+                    fs.Write(student.FileContent, 0, student.FileContent.Length);
+                    fs.Close();
+
+                    student.PhotoPath = Path.Combine("images", student.FileName);
+                }
+
                 var result = await _studentRepository.UpdateStudent(student);
 
                 return Ok(result);
@@ -95,6 +141,24 @@ namespace MudBlazorUICRUDApp.Server.Controllers
         {
             try
             {
+                var stu = await _studentRepository.GetStudent(id);
+
+                //Delete File
+                if(stu != null && !string.IsNullOrEmpty(stu.PhotoPath))
+                {
+                    //If we want to create wwwroot folder in Server project
+                    if (string.IsNullOrWhiteSpace(_env.WebRootPath))
+                    {
+                        _env.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                    }
+                    var path = Path.Combine(_env.WebRootPath, stu.PhotoPath);
+
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+                }
+
                 var result = await _studentRepository.DeleteStudent(id);
 
                 return Ok(result);
@@ -105,38 +169,38 @@ namespace MudBlazorUICRUDApp.Server.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("UploadStudentImage")]
-        public ActionResult<UploadResult> UploadStudentImage(IFormFile file)
-        {
-            var UploadResult = new UploadResult();
-            string fileName = file.FileName;
-            var path = Path.Combine(_env.ContentRootPath, "images", fileName);
+        //[HttpPost]
+        //[Route("UploadStudentImage")]
+        //public ActionResult<UploadResult> UploadStudentImage(IFormFile file)
+        //{
+        //    var UploadResult = new UploadResult();
+        //    string fileName = file.FileName;
+        //    var path = Path.Combine(_env.ContentRootPath, "images", fileName);
 
-            using FileStream fs = new(path, FileMode.Create);
-            file.CopyTo(fs);
+        //    using FileStream fs = new(path, FileMode.Create);
+        //    file.CopyTo(fs);
 
-            UploadResult.UploadFilePath = Path.Combine("images", fileName);
+        //    UploadResult.UploadFilePath = Path.Combine("images", fileName);
 
-            return Ok(UploadResult);
-        }
+        //    return Ok(UploadResult);
+        //}
 
-        [HttpPost]
-        [Route("DeleteStudentImage")]
-        public ActionResult<UploadResult> DeleteStudentImage([FromBody] string fileName)
-        {
-            var UploadResult = new UploadResult();
+        //[HttpPost]
+        //[Route("DeleteStudentImage")]
+        //public ActionResult<UploadResult> DeleteStudentImage([FromBody] string fileName)
+        //{
+        //    var UploadResult = new UploadResult();
 
-            var path = Path.Combine(_env.ContentRootPath, fileName);
+        //    var path = Path.Combine(_env.ContentRootPath, fileName);
 
-            if (System.IO.File.Exists(path))
-            {
-                System.IO.File.Delete(path);
-            }
+        //    if (System.IO.File.Exists(path))
+        //    {
+        //        System.IO.File.Delete(path);
+        //    }
 
-            UploadResult.UploadFilePath = "";
+        //    UploadResult.UploadFilePath = "";
 
-            return Ok(UploadResult);
-        }
+        //    return Ok(UploadResult);
+        //}
     }
 }

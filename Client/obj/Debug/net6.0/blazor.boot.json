@@ -199,15 +199,15 @@
       "mscorlib.dll": "sha256-KqZqU1imWCwJ9UPDElyoolN8s7Yqhjk67wuOohFN5KA=",
       "netstandard.dll": "sha256-kBK\/QJy7\/skP97jqnvXnOFMrhWS8HZ1bsADFK\/gZkyM=",
       "System.Private.CoreLib.dll": "sha256-3webPuyNUXfAFKY5c1tC\/jBVrjZHelBwvXrr1E9VJuk=",
-      "MudBlazorUICRUDApp.Shared.dll": "sha256-\/d0qnwccp0Fv5Yitm1xymJIuxfluNbVuR2\/9KeT2cbk=",
-      "MudBlazorUICRUDApp.Client.dll": "sha256-FHT4twB2T4LskMIRBiVppsjpp+qd0VLiCCCVQcSmahw="
+      "MudBlazorUICRUDApp.Shared.dll": "sha256-yng13G4ExNApF3FhjlBrH8rftEW9Gy7jdegYub1h2OY=",
+      "MudBlazorUICRUDApp.Client.dll": "sha256-oCp0SHJ9ZQhALVT7bpbkJHwPliJOOIcRiP8X4cDRN50="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "MudBlazorUICRUDApp.Shared.pdb": "sha256-kGbpLxKd3F8sq0jI\/ueFYqZL71lHej0rb05zaSfxUX4=",
-      "MudBlazorUICRUDApp.Client.pdb": "sha256-Vh2hY14Sld94EhBmwPkx29aJrCE74EQ4XDZ9rutRsfg="
+      "MudBlazorUICRUDApp.Shared.pdb": "sha256-UmzRWnbnn8K\/GIYjlVTdY5X5iXBhmkWU4xAowM85eAA=",
+      "MudBlazorUICRUDApp.Client.pdb": "sha256-rXO93aWlKCNU9FKFov7OxA+P2TyLOvmLqcf\/p4cwb74="
     },
     "runtime": {
       "dotnet.6.0.13.tasq8y53u5.js": "sha256-X\/515F1HEzgsDZdY8BJjt8YUwrWngHGZkMnpClhsrpY=",

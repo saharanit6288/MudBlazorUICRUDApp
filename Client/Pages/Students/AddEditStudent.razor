@@ -85,7 +85,8 @@
 @code {
     private bool isVisible = true;
     private Student student = new();
-    private StreamContent? fileContent;
+    //private StreamContent? fileContent;
+    IBrowserFile selectedFile;
     private string? fileName;
     private bool ShowErrors;
     private IEnumerable<string> Errors;
@@ -120,18 +121,27 @@
         isVisible = true;
         if (!string.IsNullOrEmpty(fileName))
         {
+            //Upload Image
+            Stream stream = selectedFile.OpenReadStream();
+            MemoryStream ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            stream.Close();
+
+            student.FileName = fileName;
+            student.FileContent = ms.ToArray();
+            ms.Close();
+
             //Delete Image if Exists
-            if (Id != 0)
-            {
-                await StudentService.DeleteStudentImage(student.PhotoPath);
-            }
+            //if (Id != 0)
+            //{
+            //    await StudentService.DeleteStudentImage(student.PhotoPath);
+            //}
 
             //Upload Image
-            using var content = new MultipartFormDataContent();
-            content.Add(content: fileContent, name: "\"file\"", fileName: fileName);
-            var res = await StudentService.UploadStudentImage(content);
-
-            student.PhotoPath = res.UploadFilePath;
+            //using var content = new MultipartFormDataContent();
+            //content.Add(content: fileContent, name: "\"file\"", fileName: fileName);
+            //var res = await StudentService.UploadStudentImage(content);
+            //student.PhotoPath = res.UploadFilePath;
         }
 
         student.DateOfBrith = Convert.ToDateTime(date);
@@ -150,7 +160,7 @@
                 Errors = result.Errors;
                 ShowErrors = true;
             }
-            
+
         }
         else
         {
@@ -171,9 +181,12 @@
 
     private void UploadFile(InputFileChangeEventArgs e)
     {
-        long maxFileSize = 1024 * 1024 * 10; //10 MB
-        fileContent = new StreamContent(e.File.OpenReadStream(maxFileSize));
-        fileContent.Headers.ContentType = new MediaTypeHeaderValue(e.File.ContentType);
+        selectedFile = e.File;
         fileName = e.File.Name;
+        this.StateHasChanged();
+        //long maxFileSize = 1024 * 1024 * 10; //10 MB
+        //fileContent = new StreamContent(e.File.OpenReadStream(maxFileSize));
+        //fileContent.Headers.ContentType = new MediaTypeHeaderValue(e.File.ContentType);
+        //fileName = e.File.Name;
     }
 }

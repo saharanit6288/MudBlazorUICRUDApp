@@ -10,6 +10,7 @@ namespace MudBlazorUICRUDApp.Shared.AuthModels
     public class LoginModel
     {
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
