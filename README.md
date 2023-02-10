@@ -21,7 +21,7 @@ Its MudBlazor UI + CRUD operations with FileUpload, Delete Modal popup and Authe
 ![image](https://user-images.githubusercontent.com/25769384/218093705-439f9802-8eaf-44c8-b376-7b1904703e40.png)
 
 ### Student List-
-![image](https://user-images.githubusercontent.com/25769384/218093816-8132bfa1-502d-4d78-af55-2d49c75a6213.png)
+![image](https://user-images.githubusercontent.com/25769384/218129614-0f57dcbb-258d-49a0-b0c1-069557cae95f.png)
 
 ### Add Student-
 ![image](https://user-images.githubusercontent.com/25769384/218093938-99e9da65-39f5-49db-b5a1-4f88d565371a.png)
