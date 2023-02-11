@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\Ranit Saha\Documents\PUBLISH\MudBlazorApp</_PublishTargetUrl>
+    <History>True|2023-02-11T05:58:56.2748782Z;True|2023-02-11T11:25:01.5605644+05:30;True|2023-02-11T10:28:48.7699370+05:30;False|2023-02-11T10:28:15.4450642+05:30;True|2023-02-11T10:22:18.8652287+05:30;True|2023-02-11T10:13:40.2052201+05:30;True|2023-02-11T10:09:58.2877627+05:30;True|2023-02-11T10:05:57.1610044+05:30;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="images\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
