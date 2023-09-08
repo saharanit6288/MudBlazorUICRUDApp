@@ -10,3 +10,14 @@ C:\Users\Ranit Saha\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\MudB
 C:\Users\Ranit Saha\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\refint\MudBlazorUICRUDApp.Shared.dll
 C:\Users\Ranit Saha\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\MudBlazorUICRUDApp.Shared.pdb
 C:\Users\Ranit Saha\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\ref\MudBlazorUICRUDApp.Shared.dll
+C:\Users\sahar\source\repos\MudBlazorUICRUDApp\Shared\bin\Debug\net6.0\MudBlazorUICRUDApp.Shared.deps.json
+C:\Users\sahar\source\repos\MudBlazorUICRUDApp\Shared\bin\Debug\net6.0\MudBlazorUICRUDApp.Shared.dll
+C:\Users\sahar\source\repos\MudBlazorUICRUDApp\Shared\bin\Debug\net6.0\MudBlazorUICRUDApp.Shared.pdb
+C:\Users\sahar\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\MudBlazorUICRUDApp.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sahar\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\MudBlazorUICRUDApp.Shared.AssemblyInfoInputs.cache
+C:\Users\sahar\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\MudBlazorUICRUDApp.Shared.AssemblyInfo.cs
+C:\Users\sahar\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\MudBlazorUICRUDApp.Shared.csproj.CoreCompileInputs.cache
+C:\Users\sahar\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\MudBlazorUICRUDApp.Shared.dll
+C:\Users\sahar\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\refint\MudBlazorUICRUDApp.Shared.dll
+C:\Users\sahar\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\MudBlazorUICRUDApp.Shared.pdb
+C:\Users\sahar\source\repos\MudBlazorUICRUDApp\Shared\obj\Debug\net6.0\ref\MudBlazorUICRUDApp.Shared.dll

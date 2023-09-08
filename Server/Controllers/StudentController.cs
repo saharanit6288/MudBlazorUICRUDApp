@@ -57,10 +57,15 @@ namespace MudBlazorUICRUDApp.Server.Controllers
                 {
                     return BadRequest("No Input");
                 }
+                // Get the offset from current time in UTC time
+                DateTimeOffset dto = new DateTimeOffset(DateTime.UtcNow);
+                // Get the unix timestamp in seconds
+                string unixTime = dto.ToUnixTimeSeconds().ToString();
 
                 //Upload File
                 if (!string.IsNullOrEmpty(student.FileName))
                 {
+                    student.FileName = unixTime + "_" + student.FileName;
                     //If we want to create wwwroot folder in Server project
                     if (string.IsNullOrWhiteSpace(_env.WebRootPath))
                     {
@@ -94,6 +99,10 @@ namespace MudBlazorUICRUDApp.Server.Controllers
                 {
                     return BadRequest("No Input");
                 }
+                // Get the offset from current time in UTC time
+                DateTimeOffset dto = new DateTimeOffset(DateTime.UtcNow);
+                // Get the unix timestamp in seconds
+                string unixTime = dto.ToUnixTimeSeconds().ToString();
 
                 var stu = await _studentRepository.GetStudent(student.StudentID);
 
@@ -116,7 +125,8 @@ namespace MudBlazorUICRUDApp.Server.Controllers
                             System.IO.File.Delete(pathDel);
                         }
                     }
-                    
+
+                    student.FileName = unixTime + "_" + student.FileName;
                     var path = Path.Combine(_env.WebRootPath, "images", student.FileName);
                     var fs = System.IO.File.Create(path);
                     fs.Write(student.FileContent, 0, student.FileContent.Length);
