@@ -1,12 +1,16 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\sahar\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\images\\img1.jpg",
-      "PackagePath": "staticwebassets\\images\\img1.jpg"
+      "Id": "C:\\Users\\sahar\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\images\\1694189155_rohitsharma.jpg",
+      "PackagePath": "staticwebassets\\images\\1694189155_rohitsharma.jpg"
     },
     {
-      "Id": "C:\\Users\\sahar\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\images\\img5.jpg",
-      "PackagePath": "staticwebassets\\images\\img5.jpg"
+      "Id": "C:\\Users\\sahar\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\images\\1694189333_subhmangill.jpg",
+      "PackagePath": "staticwebassets\\images\\1694189333_subhmangill.jpg"
+    },
+    {
+      "Id": "C:\\Users\\sahar\\source\\repos\\MudBlazorUICRUDApp\\Server\\wwwroot\\images\\1694189494_smritimandana.jpg",
+      "PackagePath": "staticwebassets\\images\\1694189494_smritimandana.jpg"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.MudBlazorUICRUDApp.Server.Microsoft.AspNetCore.StaticWebAssets.props",

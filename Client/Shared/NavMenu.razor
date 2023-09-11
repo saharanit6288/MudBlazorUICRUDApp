@@ -1,4 +1,9 @@
 ﻿<MudNavMenu>
+    <AuthorizeView>
+        <Authorized>
+            <MudText Color="@Color.Inherit" Class="mx-3">Hello, @context.User.Identity.Name!</MudText>
+        </Authorized>
+    </AuthorizeView>
     <MudNavLink Href="/" Match="NavLinkMatch.All">Home</MudNavLink>
     @*<MudNavLink Href="/counter" Match="NavLinkMatch.Prefix">Counter</MudNavLink>
     <MudNavLink Href="/fetchdata" Match="NavLinkMatch.Prefix">Fetch Data</MudNavLink>*@
@@ -7,6 +12,7 @@
             <MudNavLink Href="/students" Match="NavLinkMatch.Prefix">Student List</MudNavLink>
         </MudNavGroup>
     </AuthorizeView>
+    <LoginDisplay />
 </MudNavMenu>
 
 @code {

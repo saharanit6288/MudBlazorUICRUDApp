@@ -1,4 +1,20 @@
 ﻿<AuthorizeView>
+<Authorized>
+    <MudNavGroup Title="Account" Expanded="true">
+        <MudNavLink Href="/userinfo" Match="NavLinkMatch.Prefix">My Account</MudNavLink>
+        <MudNavLink Href="/changepassword" Match="NavLinkMatch.Prefix">Change Passowrd</MudNavLink>
+        <MudNavLink Href="Logout" Match="NavLinkMatch.Prefix">Log out</MudNavLink>
+    </MudNavGroup>
+</Authorized>
+<NotAuthorized>
+    <MudNavGroup Title="Account" Expanded="true">
+        <MudNavLink Href="Register" Match="NavLinkMatch.Prefix">Register</MudNavLink>
+        <MudNavLink Href="Login" Match="NavLinkMatch.Prefix">Log in</MudNavLink>
+    </MudNavGroup>
+</NotAuthorized>
+</AuthorizeView>
+
+@* <AuthorizeView>
     <Authorized>
         <MudText Color="@Color.Inherit" Class="mx-3">Hello, @context.User.Identity.Name!</MudText>
         <MudLink Href="/userinfo" Color="@Color.Inherit" Class="mx-3">My Account</MudLink>
@@ -9,4 +25,4 @@
         <MudLink Href="Register" Color="@Color.Inherit" Class="mx-3">Register</MudLink>
         <MudLink Href="Login" Color="@Color.Inherit">Log in</MudLink>
     </NotAuthorized>
-</AuthorizeView>
+</AuthorizeView> *@
