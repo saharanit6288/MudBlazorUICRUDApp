@@ -1,5 +1,12 @@
 # MudBlazorUICRUDApp
 Its MudBlazor UI + CRUD operations with FileUpload, Delete Modal popup and Authentication/Authorization.
+https://mudblazorcrudapp.azurewebsites.net/
+
+# Useful Links:
+
+https://medium.com/free-code-camp/how-to-deploy-a-blazor-application-on-azure-cf6f3b1f03a0
+https://learn.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal
+https://www.learnentityframeworkcore.com/migrations
 
 # Screenshots:
 ### Landing Page-
